@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Student Registration{% endblock %}
+
+{% block content %}
+<h1>Student Registration</h1>
+<form action="#" method="post">
+    <p>Student Name:</p>
+    <p><input type="text" name="name" /></p>
+    <p>Student UserID (9 digits):</p>
+    <p><input type="text" name="user_id_stu" /></p>
+    <p>Password:</p>
+    <p><input type="password" name="password" /></p>
+    <p>Confirm Password:</p>
+    <p><input type="password" name="confirm_password" /></p>
+    <p><input type="submit" value="Register"/></p>
+</form>
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+{% if success %}
+    <p style="color: green;">{{ success }}</p>
+{% endif %}
+{% endblock %}

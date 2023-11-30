@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include head content from admin_base.html -->
+    {% block head_content %}{% endblock %}
+    <title>{% block title %}Admin Home{% endblock %}</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <!-- Include navbar and messages from admin_base.html -->
+    {% include 'admin_base.html' %}
+
+	{% block admin_content %}
+	<div class="container">
+		<!-- Display the list of admin users -->
+		<div class="mt-4">
+			<h3>List of Admin Users</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>User ID</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for admin_user in admin_users %}
+						<tr>
+							<td>{{ admin_user.name }}</td>
+							<td>{{ admin_user.user_id }}</td>
+						</tr>
+						<!-- Admin user deletion form for each admin user -->
+						<tr>
+							<td colspan="2">
+								<form method="POST" action="{{ url_for('delete_admin_user', user_id=admin_user.user_id) }}">
+									<div class="form-row align-items-center">
+									</div>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	
+	<!-- Admin user deletion form for any admin user -->
+	<div class="mt-4">
+		<h3 style="font-size: 18px;">Delete Admin User</h3>
+		<form method="POST" action="{{ url_for('delete_admin_user') }}" onsubmit="return setUserIdAdmin()">
+			<input type="hidden" id="user_id_hidden_admin" name="user_id_hidden_admin" value="">
+			<div class="form-row align-items-center">
+				<div class="col-auto">
+					<label for="deleteUserID">User ID:</label>
+					<input type="text" class="form-control" id="deleteUserID" name="deleteUserID" placeholder="Admin User ID" required>
+				</div>
+				<div class="col-auto">
+					<label for="deletePassword">Password:</label>
+					<input type="password" class="form-control" id="deletePassword" name="deletePassword" placeholder="Admin Password" required>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-danger">Delete Admin User</button>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+{% block librarian_content %}
+<div class="container">
+<!-- Display the list of librarian users -->
+	<div class="mt-4">
+    	<h3>List of Librarian Users</h3>
+    	<table class="table">
+        	<thead>
+            	<tr>
+                	<th>Name</th>
+                	<th>User ID</th>
+            	</tr>
+       		</thead>
+        	<tbody>
+            	{% for librarian_user in librarian_users %}
+                	<tr>
+                    	<td>{{ librarian_user.name }}</td>
+                    	<td>{{ librarian_user.user_id }}</td>
+            		</tr>
+					<!-- Librarian user deletion form for each librarian user -->
+					<tr>
+    					<td colspan="2">
+							<form method="POST" action="{{ url_for('delete_librarian_user_admin', user_id=librarian_user.user_id) }}">
+								<div class="form-row align-items-center">
+								</div>
+							</form>
+    					</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+<!-- Librarian user deletion form for any librarian user -->
+<div class="mt-4">
+    <h3 style="font-size: 18px;">Delete Librarian User</h3>
+    <form method="POST" action="{{ url_for('delete_librarian_user_admin') }}" onsubmit="return setUserIdLibrarian()">
+        <input type="hidden" id="user_id_hidden_lib" name="user_id_hidden_lib" value="">
+			<div class="form-row align-items-center">
+				<div class="col-auto">
+					<label for="deleteUserIDLib">User ID:</label>
+					<input type="text" class="form-control" id="deleteUserIDLib" name="deleteUserID" placeholder="Librarian User ID" required>
+				</div>
+				<div class="col-auto">
+					<label for="deletePasswordLib">Password:</label>
+					<input type="password" class="form-control" id="deletePasswordLib" name="deletePassword" placeholder="Librarian Password" required>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-danger">Delete Librarian User</button>
+				</div>
+			</div>
+		</form>	
+	</div>
+	
+	
+	
+	{% endblock %}
+
+    
+{% block student_content %}
+<!-- Display the list of student users -->
+<div class="mt-4">
+  <h3>List of Student Users</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>User ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student_user in student_users %}
+        <tr>
+          <td>{{ student_user.name }}</td>
+          <td>{{ student_user.user_id }}</td>
+        </tr>
+        <!-- Student user deletion form for each student user -->
+        <tr>
+          <td colspan="2">
+            <form method="POST" action="{{ url_for('delete_student_user_admin', user_id=student_user.user_id) }}">
+              <div class="form-row align-items-center">
+                <!-- Add any additional fields or styling if needed -->
+              </div>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Student user deletion form for any student user -->
+<div class="mt-4">
+    <h3 style="font-size: 18px;">Delete Student User</h3>
+  <form method="POST" action="{{ url_for('delete_student_user_admin') }}" onsubmit="return setUserIdStudent()">
+    <input type="hidden" id="user_id_hidden_stu" name="user_id_hidden_stu" value="">
+    <div class="form-row align-items-center">
+      <div class="col-auto">
+        <label for="deleteUserIDStu">User ID:</label>
+        <input type="text" class="form-control" id="deleteUserIDStu" name="deleteUserID" placeholder="Student User ID" required>
+      </div>
+      <div class="col-auto">
+        <label for="deletePasswordStu">Password:</label>
+        <input type="password" class="form-control" id="deletePasswordStu" name="deletePassword" placeholder="Student Password" required>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-danger">Delete Student User</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+    <!-- Bootstrap and other scripts -->
+    {% block scripts %}{% endblock %}
+
+    <script>
+        function setUserIdAdmin() 
+        {
+            // Get the user_id from the input field
+            var userId = document.getElementById("deleteUserID").value;
+    
+            // Set the value of the user_id hidden input field
+            document.getElementById("user_id_hidden_admin").value = userId;
+    
+            // Continue with form submission
+            return true;
+        }
+    </script>
+    <script>
+        function setUserIdLibrarian() 
+        {
+            // Get the user_id from the input field
+            var userId = document.getElementById("deleteUserIDLib").value;
+    
+            // Set the value of the user_id hidden input field
+            document.getElementById("user_id_hidden_lib").value = userId;
+    
+            // Continue with form submission
+            return true;
+        }
+    </script>
+        <script>
+            function setUserIdStudent() 
+            {
+                // Get the user_id from the input field
+                var userId = document.getElementById("deleteUserIDStu").value;
+        
+                // Set the value of the user_id hidden input field
+                document.getElementById("user_id_hidden_stu").value = userId;
+        
+                // Continue with form submission
+                return true;
+            }
+        </script>
+</body>
+</html>
