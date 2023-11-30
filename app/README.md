@@ -71,6 +71,9 @@ general_user.db
 ./app/templates:
 admin_base.html  admin_login.html  base.html   librarian_base.html  librarian_login.html         librarian_registration_lib.html  student_login.html         student_registration_admin.html
 admin_home.html  admin_reg.html    index.html  librarian_home.html  librarian_registration.html  student_base.html                student_registration.html  student_registration_lib.html
+
+
+
 Run the run.py file when stpped into Library/app and not just Library/ in your IDE!!!!!
 
 # Dependencies
